@@ -1,0 +1,587 @@
+.fp-icon {
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.facepanel {
+  visibility: hidden;
+}
+.facepanel .fp-modal-mask,
+.facepanel .fp-modal {
+  -webkit-animation-duration: 0.2s;
+          animation-duration: 0.2s;
+  -webkit-animation-fill-mode: backwards;
+          animation-fill-mode: backwards;
+  will-change: animation;
+}
+.facepanel .fp-modal-mask {
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+}
+.facepanel .fp-modal {
+  -webkit-animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+          animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+.facepanel.facepanel-show {
+  -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+}
+.facepanel.facepanel-show .fp-modal-mask {
+  -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+}
+.facepanel.facepanel-show .fp-modal {
+  -webkit-animation-name: slideInUp;
+          animation-name: slideInUp;
+}
+.facepanel.facepanel-hide .fp-modal-mask {
+  -webkit-animation-name: fadeOut;
+          animation-name: fadeOut;
+}
+.facepanel.facepanel-hide .fp-modal {
+  -webkit-animation-name: slideOutDown;
+          animation-name: slideOutDown;
+}
+.facepanel.facepanel-hide .fp-svg rect,
+.facepanel.facepanel-hide .fp-svg circle {
+  transition: none;
+  will-change: transition;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes slideInUp {
+  from {
+    -webkit-transform: translate(-50%, -20%);
+            transform: translate(-50%, -20%);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate(-50%, -20%);
+            transform: translate(-50%, -20%);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+@-webkit-keyframes slideOutDown {
+  from {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate(-50%, -20%);
+            transform: translate(-50%, -20%);
+  }
+}
+@keyframes slideOutDown {
+  from {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate(-50%, -20%);
+            transform: translate(-50%, -20%);
+  }
+}
+.fp-modal-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.fp-modal {
+  z-index: 1001;
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 0.25rem rgba(27, 27, 27, 0.144);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+.fp-modal:not(.preivew) {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+          transform: translate3d(-50%, -50%, 0);
+}
+.fp-modal-content .facepanel-editor-row {
+  white-space: nowrap;
+  width: auto;
+}
+.fp-modal-content .facepanel-editor-cell {
+  z-index: 2;
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+.fp-modal-content .point-target {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.125);
+  pointer-events: none;
+  z-index: 0;
+  transition: -webkit-transform 0.1s ease-in;
+  transition: transform 0.1s ease-in;
+  transition: transform 0.1s ease-in, -webkit-transform 0.1s ease-in;
+  will-change: transform;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+}
+.fp-modal-content .point-target.point-target-x {
+  top: 0;
+  height: 100%;
+}
+.fp-modal-content .point-target.point-target-y {
+  left: 0;
+  width: 100%;
+}
+.fp-modal-footer {
+  border-top: 1px solid #e0e5eb;
+  padding: 1rem 1.5rem;
+  text-align: right;
+}
+.fp-modal-footer .fp-btn-action {
+  font-size: 0.75rem;
+  height: 2rem;
+  margin-left: 1rem;
+  width: 6rem;
+  padding: 0;
+}
+.fp-linear-actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.fp-color-list-container {
+  min-height: 9px;
+}
+.fp-color-list {
+  flex-wrap: nowrap;
+  padding: 1rem 2.5rem 0.5rem 2.5rem;
+  border-bottom: 1px solid #e0e5eb;
+}
+.fp-color-list .fp-icon {
+  opacity: 0;
+  transition: opacity 0.2s linear;
+  will-change: transition;
+}
+.fp-color-list .color-item-selected .fp-icon {
+  opacity: 1;
+}
+.color-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+}
+.color-list .color-list-item {
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.color-list .color-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  border-radius: 0.75rem;
+  color: #c8c8c8;
+  transition: color 0.25s linear, box-shadow 0.25s linear;
+  will-change: color, box-shadow;
+  z-index: 1;
+  border: 1px solid currentColor;
+  padding: 3px;
+}
+.color-list .color-item .anticon {
+  color: #fa0000;
+}
+.color-list button {
+  display: block;
+}
+.face-list {
+  display: flex;
+  overflow-x: auto;
+  flex-wrap: wrap;
+  padding: 0.25rem 0 0 0.25rem;
+  border: 1px solid #eee;
+  border-radius: 0.25rem;
+}
+.face-list .face-item {
+  position: relative;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  background-color: #eee;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-radius: 2px;
+}
+.face-list .face-item svg {
+  display: block;
+  max-width: 72px;
+  max-height: 36px;
+}
+.face-list .remove-target {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+.linear-action {
+  display: block;
+  position: absolute;
+  text-align: center;
+  font-size: 12px;
+  padding: 0.5rem;
+}
+.linear-action svg.action-icon {
+  width: 100%;
+  height: 100%;
+}
+.fp-editor {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 1.25rem 1rem 2rem;
+}
+.fp-editor-container {
+  margin-right: 0.5rem;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-width: 30rem;
+}
+.fp-editor-content,
+.fp-canvas-content {
+  position: relative;
+}
+.fp-canvas-content:hover .point-target {
+  visibility: visible;
+}
+.fp-canvas-content .fp-svg-canvas {
+  position: relative;
+  z-index: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.fp-svg {
+  display: block;
+  cursor: pointer;
+}
+.fp-svg rect,
+.fp-svg circle {
+  transition: fill 0.1s ease-in-out, stroke 0.1s ease-in-out;
+  will-change: transition;
+}
+.fp-axis {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fp-axis.fp-axis-hide {
+  visibility: hidden;
+}
+.fp-axis .axis-point {
+  display: block;
+  position: absolute;
+  text-align: center;
+  pointer-events: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 12px;
+  -webkit-transform: none;
+          transform: none;
+  transition: none;
+  color: #405471;
+  transition: color 0.1s ease-in-out;
+  will-change: transition;
+}
+.fp-actions {
+  padding: 1rem 0.875rem;
+  border-radius: 0.5rem;
+}
+.fp-actions .action-item {
+  display: block;
+  line-height: 1;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+.fp-actions .action-item:last-child {
+  margin-bottom: 0;
+}
+.fp-actions .action-item .fp-btn-action {
+  position: relative;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
+}
+.fp-actions .action-item .action-radio {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.fp-actions .action-item .action-radio:checked ~ label {
+  background-color: #1EAAFF;
+}
+.fp-actions .action-item .action-radio:checked ~ label .fp-icon {
+  color: #fff;
+}
+.fp-preset-container {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid #e0e5eb;
+  padding: 1rem 0;
+}
+.fp-preset-container .fp-slides-content {
+  position: absolute;
+  top: 1rem;
+  bottom: 0;
+  left: 2.25rem;
+  right: 8.25rem;
+  padding: 0.25rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.fp-preset-container .fp-preset-item {
+  position: relative;
+  cursor: pointer;
+  background-color: #E0E5EB;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  border-radius: 2px;
+}
+.fp-preset-container .fp-preset-item.fp-preset-highlight {
+  box-shadow: 0 0 0 2px #40a9ff;
+}
+.fp-preset-container .fp-preset-item > svg {
+  max-width: 6rem;
+  max-height: 3rem;
+  pointer-events: none;
+}
+.fp-preset-container .fp-preset-custom:hover .fp-remove-trigger {
+  opacity: 1;
+}
+.fp-preset-container .fp-preset-custom .fp-remove-trigger {
+  opacity: 0;
+  transition: opacity 0.2s linear;
+  will-change: opacity;
+  z-index: 1;
+  padding: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #1EAAFF;
+  color: #405471;
+  padding: 0;
+}
+.fp-preset-container .fp-preset-custom .remove-icon {
+  width: 12px;
+  height: 12px;
+  color: #fff;
+}
+.fp-preset-slides .fp-slides-content {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.fp-preset-slides .fp-slides-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.fp-preset-slides .fp-slides-content::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 0;
+}
+.fp-preset-slides .fp-slides-content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.fp-preset-slides .split-line {
+  width: 1px;
+  top: 1.25rem;
+  height: 3rem;
+  position: absolute;
+  right: 5.75rem;
+  background-color: #E0E5EB;
+}
+.fp-preset-slides .fp-slides-trigger {
+  position: absolute;
+}
+.fp-preset-slides .fp-slides-trigger.fp-slides-play {
+  top: 1.25rem;
+  width: 3rem;
+  height: 3rem;
+  right: 1.5rem;
+  border-radius: 3rem;
+  padding: 0.5rem;
+}
+.fp-preset-slides .fp-slides-trigger.fp-slides-trigger-prev,
+.fp-preset-slides .fp-slides-trigger.fp-slides-trigger-next {
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  background-color: transparent;
+  top: 2.25rem;
+  padding: 0;
+}
+.fp-preset-slides .fp-slides-trigger.fp-slides-trigger-prev {
+  left: 0.75rem;
+}
+.fp-preset-slides .fp-slides-trigger.fp-slides-trigger-next {
+  right: 6.75rem;
+}
+.fp-preset-slides .fp-slides-trigger .slides-icon {
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+.fp-preset-slides .fp-slides-trigger.disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+.fp-preset-slides .fp-preset-list {
+  display: inline-flex;
+  flex-wrap: nowrap;
+}
+.fp-btn-action {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* transition: opacity linear 0.25s, background-color linear 0.25s; */
+  will-change: background-color, opacity;
+  z-index: 1;
+  background-color: #fff;
+  color: #1EAAFF;
+  border: 1px solid #1EAAFF;
+  outline: none;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+.fp-btn-action .fp-icon {
+  transition: color linear 0.25s;
+  will-change: color;
+  color: #1EAAFF;
+}
+
+.fp-btn-action:hover {
+    opacity: .75;
+}
+
+.fp-btn-action:active {
+    opacity: 1;
+}
+
+.fp-modal-footer .fp-btn-action:hover {
+    background-color: #1EAAFF;
+    color: #fff;
+}
+
+.fp-modal-footer .fp-btn-action:active {
+    background-color: #1B9CEA;
+    border:1px solid #1B9CEA;
+    color: #fff;
+}
+
+.fp-btn-action.active:hover {
+    background-color: #4BBBFF;
+    border:1px solid #4BBBFF;
+    color: #fff;
+}
+
+.fp-btn-action.active:active {
+    background-color: #1B9CEA;
+    border:1px solid #1B9CEA;
+    color: #fff;
+}
+
+
+
+.fp-btn-action.active {
+  background-color: #1EAAFF;
+  color: #fff;
+}
+.fp-btn-action.active .fp-icon {
+  color: #fff;
+}
+.fp-btn-action.danger {
+  border-color: #FD7D70;
+}
+.fp-btn-action.danger .fp-icon {
+  color: #FD7D70;
+}
+.fp-modal-close {
+  width: 32px;
+  height: 32px;
+  border-top-right-radius: 0.25rem;
+}
+.fp-modal-close,
+.fp-remove-trigger {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(225, 225, 225, 0.5);
+  color: #ff3c3f;
+}
+.fp-modal-close:hover,
+.fp-remove-trigger:hover {
+  color: #ff090d;
+}
