@@ -27,14 +27,16 @@ class PeripheralTile extends React.Component {
                     />
                     <Box className={styles.peripheralTileNameWrapper}>
                         <Box className={styles.peripheralTileNameLabel}>
-                            <FormattedMessage
-                                defaultMessage="Device name"
-                                description="Label for field showing the device name"
-                                id="gui.connection.peripheral-name-label"
-                            />
+                            {this.props.name || (
+                                <FormattedMessage
+                                    defaultMessage="Device name"
+                                    description="Label for field showing the device name"
+                                    id="gui.connection.peripheral-name-label"
+                                />
+                            )}
                         </Box>
                         <Box className={styles.peripheralTileNameText}>
-                            {this.props.name}
+                            {this.props.peripheralId || this.props.name}
                         </Box>
                     </Box>
                 </Box>
