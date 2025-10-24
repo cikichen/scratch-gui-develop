@@ -85,6 +85,12 @@ const ariaMessages = defineMessages({
         id: 'gui.menuBar.mataTutorialsLink',
         defaultMessage: 'Matatalab Tutorials',
         description: 'accessibility text for the tutorials button'
+    },
+    // 请输入项目链接
+    openProject: {
+        id: 'gui.menuBar.openProject',
+        defaultMessage: 'Project link',
+        description: 'accessibility text for the open project button'
     }
 });
 
@@ -178,17 +184,21 @@ class MenuBar extends React.Component {
             projectUrl: ''
         };
     }
+
     componentDidMount () {
         document.addEventListener('keydown', this.handleKeyPress);
     }
+
     componentWillUnmount () {
         document.removeEventListener('keydown', this.handleKeyPress);
     }
+
     handleProjectUrlChange (e) {
         this.setState({
             projectUrl: e.target.value
         });
     }
+
     handleClickOpen () {
         const {vm} = this.props;
         const {projectUrl} = this.state;
@@ -211,6 +221,7 @@ class MenuBar extends React.Component {
                 this.setState({loading: false});
             });
     }
+
     handleClickNew () {
         // if the project is dirty, and user owns the project, we will autosave.
         // but if they are not logged in and can't save, user should consider
@@ -226,18 +237,22 @@ class MenuBar extends React.Component {
         }
         this.props.onRequestCloseFile();
     }
+
     handleClickRemix () {
         this.props.onClickRemix();
         this.props.onRequestCloseFile();
     }
+
     handleClickSave () {
         this.props.onClickSave();
         this.props.onRequestCloseFile();
     }
+
     handleClickSaveAsCopy () {
         this.props.onClickSaveAsCopy();
         this.props.onRequestCloseFile();
     }
+
     handleClickSeeCommunity (waitForUpdate) {
         if (this.props.shouldSaveBeforeTransition()) {
             this.props.autoUpdateProject(); // save before transitioning to project page
@@ -246,6 +261,7 @@ class MenuBar extends React.Component {
             waitForUpdate(false); // immediately transition to project page
         }
     }
+
     handleClickShare (waitForUpdate) {
         if (!this.props.isShared) {
             if (this.props.canShare) { // save before transitioning to project page
@@ -259,12 +275,14 @@ class MenuBar extends React.Component {
             }
         }
     }
+
     handleRestoreOption (restoreFun) {
         return () => {
             restoreFun();
             this.props.onRequestCloseEdit();
         };
     }
+
     handleKeyPress (event) {
         const modifier = bowser.mac ? event.metaKey : event.ctrlKey;
         if (modifier && event.key === 's') {
@@ -272,6 +290,7 @@ class MenuBar extends React.Component {
             event.preventDefault();
         }
     }
+
     getSaveToComputerHandler (downloadProjectCallback) {
         return () => {
             this.props.onRequestCloseFile();
@@ -282,11 +301,13 @@ class MenuBar extends React.Component {
             }
         };
     }
+
     handleLanguageMouseUp (e) {
         if (!this.props.languageMenuOpen) {
             this.props.onClickLanguage(e);
         }
     }
+
     restoreOptionMessage (deletedItem) {
         switch (deletedItem) {
         case 'Sprite':
@@ -316,6 +337,7 @@ class MenuBar extends React.Component {
         }
         }
     }
+
     buildAboutMenu (onClickAbout) {
         if (!onClickAbout) {
             // hide the button
@@ -323,7 +345,7 @@ class MenuBar extends React.Component {
         }
         if (typeof onClickAbout === 'function') {
             // make a button which calls a function
-            return <AboutButton onClick={onClickAbout} />;
+            return <AboutButton onClick={onClickAbout}/>;
         }
         // assume it's an array of objects
         // each item must have a 'title' FormattedMessage and a 'handleClick' function
@@ -360,12 +382,14 @@ class MenuBar extends React.Component {
             </div>
         );
     }
+
     wrapAboutMenuCallback (callback) {
         return () => {
             callback();
             this.props.onRequestCloseAbout();
         };
     }
+
     render () {
         const saveNowMessage = (
             <FormattedMessage
@@ -435,7 +459,7 @@ class MenuBar extends React.Component {
                                     src={dropdownCaret}
                                 />
                             </div>
-                            <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)} />
+                            <LanguageSelector label={this.props.intl.formatMessage(ariaMessages.language)}/>
                         </div>)}
                         {(this.props.canManageFiles) && (
                             <div
@@ -553,7 +577,7 @@ class MenuBar extends React.Component {
                             </MenuBarMenu>
                         </div>
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     <div
                         aria-label={this.props.intl.formatMessage(ariaMessages.tutorials)}
                         className={classNames(styles.menuBarItem, styles.hoverable)}
@@ -565,7 +589,7 @@ class MenuBar extends React.Component {
                         />
                         <FormattedMessage {...ariaMessages.tutorials} />
                     </div>
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     {this.props.canEditTitle ? (
                         <div className={classNames(styles.menuBarItem, styles.growable)}>
                             <MenuBarItemTooltip
@@ -597,9 +621,9 @@ class MenuBar extends React.Component {
                         >{this.props.intl.formatMessage(ariaMessages.mataTutorials)}</a>
                     </div>
                     {/* TODO: 打开项目 DEMO */}
-                    <Divider className={classNames(styles.divider)} />
+                    <Divider className={classNames(styles.divider)}/>
                     <Input
-                        placeholder="请输入项目链接"
+                        placeholder={this.props.intl.formatMessage(ariaMessages.openProject)}
                         value={this.state.projectUrl}
                         onChange={this.handleProjectUrlChange}
                     />
@@ -688,7 +712,8 @@ MenuBar.propTypes = {
 
 MenuBar.defaultProps = {
     logo: mataLogo,
-    onShare: () => {}
+    onShare: () => {
+    }
 };
 
 const mapStateToProps = (state, ownProps) => {
