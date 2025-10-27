@@ -88,33 +88,52 @@
 
 .signal-strength-meter {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: flex-end;
-    width: 22px;
+    gap: 2px;
+    min-width: 32px;
     height: 16px;
+    transition: opacity 0.2s ease;
 }
 
 [dir="ltr"] .signal-strength-meter {
-    margin-right: 1rem;
+    margin-right: 0.75rem;
 }
 
 [dir="rtl"] .signal-strength-meter {
-    margin-left: 1rem;
+    margin-left: 0.75rem;
 }
 
 .signal-bar {
-    width: 4px;
+    width: 3px;
     border-radius: 4px;
     background-color: #DBDBDB;
+    transition: background-color 0.2s ease, height 0.2s ease;
 }
 
-.signal-bar:nth-of-type(1) { height: 25%; }
-.signal-bar:nth-of-type(2) { height: 50%; }
-.signal-bar:nth-of-type(3) { height: 75%; }
-.signal-bar:nth-of-type(4) { height: 100%; }
-
-.green-bar {
+.signal-bar-active {
     background-color: $pen-primary;
+}
+
+.signal-strength-meter-stale {
+    opacity: 0.5;
+}
+
+.signal-strength-label {
+    font-size: 0.75rem;
+    color: $text-primary;
+    min-width: 64px;
+    white-space: nowrap;
+}
+
+[dir="ltr"] .signal-strength-label {
+    margin-right: 0.75rem;
+    text-align: right;
+}
+
+[dir="rtl"] .signal-strength-label {
+    margin-left: 0.75rem;
+    text-align: left;
 }
 
 .radar-small {

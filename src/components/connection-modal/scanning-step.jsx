@@ -39,6 +39,7 @@ const ScanningStep = props => (
                                 name={peripheral.name}
                                 peripheralId={peripheral.peripheralId}
                                 rssi={peripheral.rssi}
+                                isStale={peripheral.isStale}
                                 onConnecting={props.onConnecting}
                             />)
                         )}
@@ -92,6 +93,7 @@ ScanningStep.propTypes = {
     peripheralList: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         rssi: PropTypes.number,
+        isStale: PropTypes.bool,
         peripheralId: PropTypes.string
     })),
     scanning: PropTypes.bool.isRequired

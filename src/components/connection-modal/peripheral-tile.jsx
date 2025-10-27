@@ -4,6 +4,10 @@ import classNames from 'classnames';
 import React from 'react';
 import bindAll from 'lodash.bindall';
 import Box from '../box/box.jsx';
+import {
+    sanitizeRSSI,
+    getSignalLevel
+} from '../../lib/ble/signal-utils.js';
 
 import styles from './connection-modal.css';
 
@@ -18,6 +22,10 @@ class PeripheralTile extends React.Component {
         this.props.onConnecting(this.props.peripheralId);
     }
     render () {
+        const sanitizedRSSI = sanitizeRSSI(this.props.rssi);
+        const barCount = 8;
+        const signalLevel = getSignalLevel(sanitizedRSSI, barCount);
+        const signalLabel = sanitizedRSSI === null ? '-- dBm' : `${sanitizedRSSI} dBm`;
         return (
             <Box className={styles.peripheralTile}>
                 <Box className={styles.peripheralTileName}>
@@ -41,27 +49,28 @@ class PeripheralTile extends React.Component {
                     </Box>
                 </Box>
                 <Box className={styles.peripheralTileWidgets}>
-                    <Box className={styles.signalStrengthMeter}>
-                        <div
-                            className={classNames(styles.signalBar, {
-                                [styles.greenBar]: this.props.rssi > -80
-                            })}
-                        />
-                        <div
-                            className={classNames(styles.signalBar, {
-                                [styles.greenBar]: this.props.rssi > -60
-                            })}
-                        />
-                        <div
-                            className={classNames(styles.signalBar, {
-                                [styles.greenBar]: this.props.rssi > -40
-                            })}
-                        />
-                        <div
-                            className={classNames(styles.signalBar, {
-                                [styles.greenBar]: this.props.rssi > -20
-                            })}
-                        />
+                    <Box
+                        className={classNames(styles.signalStrengthMeter, {
+                            [styles.signalStrengthMeterStale]: this.props.isStale
+                        })}
+                        title={this.props.isStale ? `${signalLabel} (stale)` : signalLabel}
+                    >
+                        {Array.from({length: barCount}).map((_, index) => {
+                            const displayIndex = index + 1;
+                            const barHeight = `${(displayIndex / barCount) * 100}%`;
+                            return (
+                                <div
+                                    key={displayIndex}
+                                    className={classNames(styles.signalBar, {
+                                        [styles.signalBarActive]: index < signalLevel
+                                    })}
+                                    style={{height: barHeight}}
+                                />
+                            );
+                        })}
+                    </Box>
+                    <Box className={styles.signalStrengthLabel}>
+                        {this.props.isStale ? `${signalLabel} ...` : signalLabel}
                     </Box>
                     <button
                         onClick={this.handleConnecting}
@@ -83,7 +92,12 @@ PeripheralTile.propTypes = {
     name: PropTypes.string,
     onConnecting: PropTypes.func,
     peripheralId: PropTypes.string,
-    rssi: PropTypes.number
+    rssi: PropTypes.number,
+    isStale: PropTypes.bool
+};
+
+PeripheralTile.defaultProps = {
+    isStale: false
 };
 
 export default PeripheralTile;
